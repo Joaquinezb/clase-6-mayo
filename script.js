@@ -28,4 +28,22 @@ function addStudentToTable(student){
     <td>${student.grade}</td>
     `;
  tableBody.appendChild(row);
+ addPromedio();
 }
+//clase 13 de mayo
+const promedioDiv = document.getElementById("promedio");
+function addPromedio(promedio) {
+   const notas = document.querySelectorAll("#studentsTable tbody")
+   let suma=0;
+   let cantidad=0;
+
+   notas.forEach(function(nota) {
+      suma += parseFloat(nota.textContent); 
+      cantidad++;
+    });
+
+   const promedio = suma / cantidad 
+
+  promedioDiv.textContent = `Promedio: ${promedio.toFixed(2)}`;
+}; 
+ calcularPromedio();
