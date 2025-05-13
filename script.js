@@ -30,10 +30,11 @@ function addStudentToTable(student){
  tableBody.appendChild(row);
  addPromedio();
 }
-//clase 13 de mayo
+// 13 de mayo
 const promedioDiv = document.getElementById("promedio");
-function addPromedio(promedio) {
-   const notas = document.querySelectorAll("#studentsTable tbody")
+function addPromedio() {
+   const notas = document.querySelectorAll("#studentsTable tbody tr td:nth-child(3)");
+
    let suma=0;
    let cantidad=0;
 
@@ -45,5 +46,6 @@ function addPromedio(promedio) {
    const promedio = suma / cantidad 
 
   promedioDiv.textContent = `Promedio: ${promedio.toFixed(2)}`;
+  calcularPromedio();
 }; 
- calcularPromedio();
+ 
