@@ -6,13 +6,14 @@ document.getElementById("studentForm").addEventListener("submit",function(e){
  const name=document.getElementById("name").value.trim();
  const lastName=document.getElementById("lastName").value.trim();
  const grade=parseFloat(document.getElementById("grade").value)
+ const fecha=document.getElementById("fecha").value.trim();
 
- if(grade<1 || grade>7 ||!name || !lastName || isNaN(grade)){
+ if(grade<1 || grade>7 ||!name || !lastName || isNaN(grade)|| !fecha){
     alert("Error sl ingresar los datos")
     return
  }
 
- const student={name,lastName,grade}
+ const student={name,lastName,grade,fecha}
  students.push(student)
  //console.log(students) 
 addStudentToTable(student);
@@ -26,6 +27,7 @@ function addStudentToTable(student){
     <td>${student.name}</td>
     <td>${student.lastName}</td>
     <td>${student.grade}</td>
+    <td>${student.fecha}</td>
     `;
  tableBody.appendChild(row);
  addPromedio();
