@@ -8,17 +8,55 @@ document.getElementById("studentForm").addEventListener("submit",function(e){
  const grade=parseFloat(document.getElementById("grade").value)
  const fecha=document.getElementById("fecha").value.trim();
 
- if(grade<1 || grade>7 ||!name || !lastName || isNaN(grade)|| !fecha){
-    alert("Error sl ingresar los datos")
-    return
- }
+// Limpia errores previos
+['nameError', 'lastNameError', 'gradeError', 'fechaError'].forEach(id => {
+    const el = document.getElementById(id);
+    el.textContent = '';
+    el.classList.remove('active');
+});
 
- const student={name,lastName,grade,fecha}
- students.push(student)
- //console.log(students) 
-addStudentToTable(student);
- this.reset()
+ let valid = true;
 
+    // Validar nombre
+   if (name === '') {
+    const el = document.getElementById('nameError');
+   el.innerHTML = '<span class="icon-alert">!</span> El nombre es obligatorio.';
+el.classList.add('active');
+    valid = false;
+}
+
+    // Validar apellido
+   if (lastName === '') {
+    const el = document.getElementById('lastNameError');
+    el.innerHTML = '<span class="icon-alert">!</span> El apellido es obligatorio.';
+    el.classList.add('active');
+    valid = false;
+}
+
+    // Validar nota
+  if (isNaN(grade) || grade < 1 || grade > 7) {
+    const el = document.getElementById('gradeError');
+    el.innerHTML = '<span class="icon-alert">!</span> La nota debe ser un número entre 1 y 7';
+    el.classList.add('active');
+    valid = false;
+}
+
+    // Validar fecha
+const fechaRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+if (!fechaRegex.test(fecha)) {
+    const el = document.getElementById('fechaError');
+    el.innerHTML = '<span class="icon-alert">!</span> ingrese una Fecha valida (DD/MM/AAAA).';
+    el.classList.add('active');
+    valid = false;
+}
+
+if (!valid) return; // Si hay errores, no continúa
+
+    const student = { name, lastName, grade, fecha };
+    students.push(student);
+    //console.log(students) 
+    addStudentToTable(student);
+    this.reset();
 });
 const tableBody=document.querySelector("#studentsTable tbody");
 function addStudentToTable(student){
@@ -47,7 +85,7 @@ function addPromedio() {
 
    const promedio = suma / cantidad 
 
-  promedioDiv.textContent = `Promedio: ${promedio.toFixed(2)}`;
+  promedioDiv.textContent = `Promedio: ${promedio.toFixed(1)}`;
   calcularPromedio();
+  
 }; 
- 

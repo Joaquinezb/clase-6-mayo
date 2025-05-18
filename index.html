@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="styles.css">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,27 +9,48 @@
 </head>
 <body>
     <h2>Notas Asignatura Front-End</h2>
-    <form id="studentForm">
-      <div>
-        <label for="name">Nombre :</label>
-        <input type="text" id="name" required>
-      </div>
-      <div>
-        <label for="lastName">Apellido: </label>
-        <input type="text" id="lastName" required>
-      </div>
-      <div>
-        <label for="grade">Nota: </label>
-        <input type="number" id="grade" step="0.1" min="1" max="7">
-      </div>
-      <div>
-        <label for="fecha">fecha: </label>
-        <input type="text" id="fecha">
-      </div>
-      <button type="submit">Guardar</button>
-    </form>
+<form id="studentForm" novalidate>
+  <div class="input-group" style="position: relative;">
+    <label for="name">Nombre :</label>
+    <input type="text" id="name" required>
+   <span class="error-tooltip" id="nameError">
+  <span class="icon-alert">!</span>
+  El nombre es obligatorio.
+</span>
+  </div>
+  <div class="input-group">
+    <label for="lastName">Apellido: </label>
+    <input type="text" id="lastName" required>
+    <span class="error-tooltip" id="lastNameError">
+  <span class="icon-alert">!</span>
+  El apellido es obligatorio.
+    </span>
+  </div>
+  <div class="input-group">
+    <label for="grade">Nota (1.0 - 7.0): </label>
+    <input type="number" id="grade" step="0.1" min="1" max="7" required>
+    <span class="error-tooltip" id="gradeError">
+  <span class="icon-alert">!</span>
+  La nota debe estar entre 1.0 y 7.0
+    </span>
+  </div>
+  <div class="input-group">
+    <label for="fecha">Fecha : </label>
+    <input type="text" id="fecha" pattern="\d{2}/\d{2}/\d{4}" maxlength="10" required placeholder="DD/MM/AAAA">
+    <span class="error-tooltip " id="fechaError">
+  <span class="icon-alert">!</span>
+  por favor ingrese una fecha valida.
+  <br> Formato: DD/MM/AAAA
+    </span>
+  </div>
+  <button type="submit">Guardar</button>
+</form>
 
-    <table id="studentsTable" border="1" cellpadding="8" cellspacing="0">
+    <div id="promedio-container">
+        <h3 id="promedio"></h3>
+    </div>
+
+    <table id="studentsTable">
      <thead>
        <tr>
         <th>Nombre : </th>
@@ -35,11 +58,10 @@
         <th>Nota : </th>
         <th>fecha : </th>
        </tr>
-       <h3 id="promedio"></h3>
      </thead>
      <tbody>
         <!-- Filas de datos-->
-         <!-- falta agregar fecha como numero y sus restricciones-->
+         <!-- falta agregar fecha como numero y sus restricciones se podria agregar el porcentaje de valor de la nota -->
         <!-- añadirle c++ -->
      </tbody>
     </table>
