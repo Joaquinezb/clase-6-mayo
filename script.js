@@ -68,27 +68,18 @@ function addStudentToTable(student) {
         <td>${student.grade}</td>
         <td>${student.fecha}</td>
         <td>
-          <button class="delete-btn">Eliminar</Button>
+          <button class="delete-btn">Eliminar</button>
         </td>
     `;
-
-    row.querySelector(".delete-btn").addEventListener("click", function() {
-        borrarEstudiante(student,row);
-    })
     tableBody.appendChild(row);
+
+    // Asignar evento click al botón eliminar
+    row.querySelector(".delete-btn").addEventListener("click", function () {
+        borrarEstudiante(student, row);
+    });
+
     addPromedio();
 }
-
-function borrarEstudiante (student,row){
-    const index = student.indexOf(student);
-    if (index > -1){
-        student.splice(index, 1);
-        row.remove();
-        calculateAverage();
-    }
-}
-
-// añadir boton editar
 
 const promedioDiv = document.getElementById("promedio");
 
@@ -104,6 +95,18 @@ function addPromedio() {
 
     const promedio = cantidad > 0 ? suma / cantidad : 0;
     promedioDiv.textContent = cantidad > 0 ? `Promedio: ${promedio.toFixed(1)}` : '';
+}
+
+function borrarEstudiante(student, row) {
+    // Buscar el índice del estudiante en el array
+    const index = students.indexOf(student);
+
+    // Eliminar el estudiante si se encuentra
+    if (index > -1) {
+        students.splice(index, 1); // Eliminar del array
+        row.remove(); // Eliminar la fila de la tabla
+        addPromedio(); // Recalcular el promedio
+    }
 }
 
 ["name", "lastName", "grade", "fecha"].forEach(function(id) {
@@ -133,3 +136,5 @@ function addPromedio() {
         }
     });
 });
+
+// textContent recomendado cambiar por innerHTML
