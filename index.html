@@ -8,7 +8,9 @@
 </head>
 <body>
     <h2>Notas Asignatura Front-End</h2>
+    <!-- Formulario para agregar o editar estudiantes -->
     <form id="studentForm" novalidate>
+        <!-- Campo para el nombre -->
         <div class="input-group">
             <label for="name">Nombre :</label>
             <input type="text" id="name" required>
@@ -17,6 +19,7 @@
                 El nombre es obligatorio.
             </span>
         </div>
+        <!-- Campo para el apellido -->
         <div class="input-group">
             <label for="lastName">Apellido: </label>
             <input type="text" id="lastName" required>
@@ -25,6 +28,7 @@
                 El apellido es obligatorio.
             </span>
         </div>
+        <!-- Campo para la nota -->
         <div class="input-group">
             <label for="grade">Nota (1.0 - 7.0): </label>
             <input type="number" id="grade" step="0.1" min="1" max="7" required>
@@ -33,6 +37,7 @@
                 La nota debe estar entre 1.0 y 7.0
             </span>
         </div>
+        <!-- Campo para la fecha -->
         <div class="input-group">
             <label for="fecha">Fecha : </label>
             <input type="text" id="fecha" pattern="\d{2}/\d{2}/\d{4}" maxlength="10" required placeholder="DD/MM/AAAA">
@@ -41,13 +46,16 @@
                 Por favor ingrese una fecha válida.<br>Formato: DD/MM/AAAA
             </span>
         </div>
+        <!-- Botón para guardar o actualizar estudiante -->
         <button type="submit">Guardar</button>
     </form>
 
+    <!-- Contenedor donde se muestra el promedio de notas -->
     <div id="promedio-container">
         <h3 id="promedio"></h3>
     </div>
 
+    <!-- Tabla donde se listan los estudiantes -->
     <table id="studentsTable">
         <thead>
             <tr>
@@ -55,13 +63,14 @@
                 <th>Apellido:</th>
                 <th>Nota:</th>
                 <th>Fecha:</th>
-                <th>Acciones:</th>
+                <th>Acciones:</th> <!-- Aquí van los botones Editar y Eliminar -->
             </tr>
         </thead>
         <tbody>
             <!-- Filas de datos -->
         </tbody>
     </table>
+    <!-- Script principal de la aplicación -->
     <script src="script.js"></script>
 </body>
 </html>
