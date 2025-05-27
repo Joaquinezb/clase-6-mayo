@@ -55,6 +55,31 @@
         <h3 id="promedio"></h3>
     </div>
 
+    <div id="stats-container">
+        <table id="statsTable">
+            <thead>
+                <tr>
+                    <th>Stats</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total de estudiantes</td>
+                    <td id="totalEstudiantes">0</td>
+                </tr>
+                <tr>
+                    <td>Porcentaje de aprobados</td>
+                    <td id="porcentajeAprobados">0%</td>
+                </tr>
+                <tr>
+                    <td>Porcentaje de reprobados</td>
+                    <td id="porcentajeReprobados">0%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <!-- Tabla donde se listan los estudiantes -->
     <table id="studentsTable">
         <thead>
@@ -74,3 +99,9 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+<!-- Estadísticas adicionales: Mostrar:
+ - Total de estudiantes
+ - porcentaje de estudiantes aprobados (nota ≥ 4.0)
+ - porcentaje de estudiantes reprobados (nota < 4.0) -->

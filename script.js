@@ -22,7 +22,7 @@ document.getElementById("studentForm").addEventListener("submit", function (e) {
 
     let valid = true;
 
-    // Validación del nombre
+    // Validación del nombre se permite numeros y letras (por ahora)
     if (name === '') {
         const el = document.getElementById('nameError');
         el.innerHTML = '<span class="icon-alert">!</span> El nombre es obligatorio.';
@@ -30,7 +30,7 @@ document.getElementById("studentForm").addEventListener("submit", function (e) {
         valid = false;
     }
 
-    // Validación del apellido
+    // Validación del apellido se permite numeros y letras (por ahora)
     if (lastName === '') {
         const el = document.getElementById('lastNameError');
         el.innerHTML = '<span class="icon-alert">!</span> El apellido es obligatorio.';
@@ -72,7 +72,7 @@ document.getElementById("studentForm").addEventListener("submit", function (e) {
     this.reset(); // Limpia el formulario
 });
 
-// Referencia al cuerpo de la tabla
+// Ref al cuerpo de la tabla
 const tableBody = document.querySelector("#studentsTable tbody");
 
 // Función para agregar un estudiante a la tabla
@@ -101,6 +101,7 @@ function addStudentToTable(student) {
     });
 
     addPromedio(); // Actualiza el promedio
+    updateStats(); // Actualiza las estadísticas
 }
 
 // Función para actualizar una fila de la tabla después de editar
@@ -129,6 +130,7 @@ function updateStudentRow(index) {
         });
     }
     addPromedio(); // Actualiza el promedio
+    updateStats(); // Actualiza las estadísticas
 }
 
 // Referencia al div donde se muestra el promedio
@@ -149,6 +151,45 @@ function addPromedio() {
     promedioDiv.textContent = cantidad > 0 ? `Promedio: ${promedio.toFixed(1)}` : '';
 }
 
+// Función para calcular y mostrar las estadísticas adicionales
+function updateStats() {
+    // Usar un Map para agrupar estudiantes únicos por nombre completo
+    const uniqueStudents = new Map();
+
+    students.forEach(student => {
+        const key = `${student.name} ${student.lastName}`;
+        // Si el estudiante ya existe en el Map, acumulamos sus notas
+        if (!uniqueStudents.has(key)) {
+            uniqueStudents.set(key, { grades: [student.grade] });
+        } else {
+            uniqueStudents.get(key).grades.push(student.grade);
+        }
+    });
+
+    const totalEstudiantes = uniqueStudents.size;
+
+    // Calcular aprobados y reprobados basados en el promedio de las notas
+    let aprobados = 0;
+    let reprobados = 0;
+
+    uniqueStudents.forEach(({ grades }) => {
+        const promedio = grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
+        if (promedio >= 4.0) {
+            aprobados++;
+        } else {
+            reprobados++;
+        }
+    });
+
+    const porcentajeAprobados = totalEstudiantes > 0 ? (aprobados / totalEstudiantes) * 100 : 0;
+    const porcentajeReprobados = totalEstudiantes > 0 ? (reprobados / totalEstudiantes) * 100 : 0;
+
+    // Actualiza los valores en la tabla
+    document.getElementById("totalEstudiantes").textContent = totalEstudiantes;
+    document.getElementById("porcentajeAprobados").textContent = `${porcentajeAprobados.toFixed(1)}%`;
+    document.getElementById("porcentajeReprobados").textContent = `${porcentajeReprobados.toFixed(1)}%`;
+}
+
 // Función para eliminar un estudiante de la tabla y del array
 function borrarEstudiante(student, row) {
     // Busca el índice del estudiante en el array
@@ -159,6 +200,7 @@ function borrarEstudiante(student, row) {
         students.splice(index, 1); // Elimina del array
         row.remove(); // Elimina la fila de la tabla
         addPromedio(); // Recalcula el promedio
+        updateStats(); // Recalcula las estadísticas
     }
 }
 
